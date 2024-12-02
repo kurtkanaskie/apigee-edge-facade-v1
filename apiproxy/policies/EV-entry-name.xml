@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables async="false" continueOnError="false" enabled="true" name="EV-entry-name">
+    <URIPath>
+        <Pattern ignoreCase="false">/organizations/{org}/keyvaluemaps/{org_map_name}/entries/{name}</Pattern>
+        <Pattern ignoreCase="false">/organizations/{org}/environments/{env}/keyvaluemaps/{env_map_name}/entries/{name}</Pattern>
+        <!-- Proxy scoped KVMs only retrieve values for the proxy the KVM is scoped to, so this doesn't work for any proxy except this one edge-facade-v1 -->
+        <Pattern ignoreCase="false">/organizations/{org}/apis/{api}/keyvaluemaps/{api_map_name}/entries/{name}</Pattern>
+    </URIPath>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</ExtractVariables>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+    <PreFlow name="PreFlow">
+        <Request/>
+        <Response/>
+    </PreFlow>
+    <Flows>
+        <Flow name="/organizations/*/keyvaluemaps/*/entries/*">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>EV-entry-name</Name>
+                </Step>
+                <Step>
+                    <Condition>request.queryparam.callout == "true"</Condition>
+                    <Name>SC-update-org</Name>
+                </Step>
+                <Step>
+                    <Name>KV-decrypt-entry</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-entry-response</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/organizations/*/keyvaluemaps/*/entries/*") and (request.verb = "GET")</Condition>
+        </Flow>
+        <Flow name="/organizations/*/environments/*/keyvaluemaps/*/entries/*">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>EV-entry-name</Name>
+                </Step>
+                <Step>
+                    <Condition>request.queryparam.callout == "true"</Condition>
+                    <Name>SC-update-env</Name>
+                </Step>
+                <Step>
+                    <Name>KV-decrypt-entry</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-entry-response</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/organizations/*/environments/*/keyvaluemaps/*/entries/*") and (request.verb = "GET")</Condition>
+        </Flow>
+    </Flows>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <HTTPProxyConnection>
+        <BasePath>/edge-facade/v1</BasePath>
+        <VirtualHost>secure-one-way</VirtualHost>
+        <VirtualHost>secure</VirtualHost>
+    </HTTPProxyConnection>
+    <RouteRule name="default">
+        <TargetEndpoint>default</TargetEndpoint>
+    </RouteRule>
+    <Description>passthrough facade to Edge API, useful to see what APIs tools and Dev Portal call.</Description>
+</ProxyEndpoint>

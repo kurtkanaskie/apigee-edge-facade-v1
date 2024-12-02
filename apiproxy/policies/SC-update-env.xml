@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout async="false" continueOnError="false" enabled="true" name="SC-update-env">
+    <DisplayName>SC-update-env</DisplayName>
+    <Request>
+        <IgnoreUnresolvedVariables>false</IgnoreUnresolvedVariables>
+        <Set>
+            <Headers>
+                <Header name="Authorization">{request.header.authorization}</Header>
+            </Headers>
+            <Verb>PUT</Verb>
+            <Payload contentType="application/json">
+{
+  "policyType" : "KeyValueMapOperations",
+  "name" : "KV-decrypt-entry",
+  "operations" : [ {
+    "Get" : {
+      "assignTo" : "private.value",
+      "key" : [ {
+        "ref" : "name",
+        "value" : ""
+      } ]
+    }
+  } ],
+  "mapIdentifier" : "{env_map_name}",
+  "scope" : "environment"
+}
+            </Payload>
+        </Set>
+    </Request>
+    <Response>calloutResponse</Response>
+    <HTTPTargetConnection>
+        <Properties/>
+        <URL>https://api.enterprise.apigee.com/v1/organizations/{organization.name}/apis/{apiproxy.name}/revisions/{apiproxy.revision}/policies/KV-decrypt-entry</URL>
+    </HTTPTargetConnection>
+</ServiceCallout>

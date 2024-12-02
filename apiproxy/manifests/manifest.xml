@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Manifest name="manifest">
+    <Policies>
+        <VersionInfo resourceName="AM-entry-response" version="SHA-512:fb80db15ce12d91abd862b108fead1137cba97107e630603a7d6bff62b133242efb2d9825f9e7c1276d2ca0446e18a9551c1b517f0fb5767b92e01edca2ae067"/>
+        <VersionInfo resourceName="EV-entry-name" version="SHA-512:5bb52c1912222d4c5b7d4ff1834302ef3c7d53bd3f37f295b61e00bf49508e3dacbb02c6001898633df666368aead41eb37147dca94503dc3d5e13dbf4f09ab4"/>
+        <VersionInfo resourceName="KV-decrypt-entry" version="SHA-512:8d0a8da066cf0c852b29bb668dc69304448c451b41167867531b1fa1ba0c152e3cb4f9b7e0788907336e83fcfaf9be60e59b64d8fa0b823a1ac6373c8616fcc4"/>
+        <VersionInfo resourceName="SC-update-env" version="SHA-512:2543d0d9d2b39d4bd9afb1b4506f863a3cd107c566e8a259ce6fd6534ef04ab12a2a467c981fff5401117bc04ee7fcb68eafba00f5a9c8bc8ebd15b4d042be4d"/>
+        <VersionInfo resourceName="SC-update-org" version="SHA-512:f41fc01ccd54e2d016cfd75fafaa3000d367e19f4469cceb2713747cfc65608f048353efdce3d37737571be71d631cbc79269573dc6173d7f4fcff2385122712"/>
+    </Policies>
+    <ProxyEndpoints>
+        <VersionInfo resourceName="default" version="SHA-512:94c9fbe870443559990c32bf35a8c780507d4b7f9373d31ed8d85ff115dee0de64bf26af63dafa0c0a2d60d7d8c079d7ad30eeabbec8ce0be792894a27fd3f62"/>
+    </ProxyEndpoints>
+    <Resources/>
+    <SharedFlows/>
+    <TargetEndpoints>
+        <VersionInfo resourceName="default" version="SHA-512:71e0e96c09b93e6376c933c2d54eb7f994746277df263eb0f70512b40fd425e4117128c7f0811113ce840d8b0eede3aaf4ed836a64d0de24706d07f155ba221e"/>
+    </TargetEndpoints>
+</Manifest>

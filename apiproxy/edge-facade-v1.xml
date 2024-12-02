@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy revision="20" name="edge-facade-v1">
+    <Basepaths>/edge-facade-v1/v1</Basepaths>
+    <ConfigurationVersion majorVersion="4" minorVersion="0"/>
+    <CreatedAt>1732743837075</CreatedAt>
+    <CreatedBy>kurtkanaskie@google.com</CreatedBy>
+    <Description>passthrough except for kvms</Description>
+    <DisplayName>edge-facade-v1</DisplayName>
+    <LastModifiedAt>1732743837075</LastModifiedAt>
+    <LastModifiedBy>kurtkanaskie@google.com</LastModifiedBy>
+    <ManifestVersion>SHA-512:6cc17bb3500ef42765966afc00d4021260c075537d036fd4bc5ad75a6f24bc6f13179cc55bba2b41cc2648109db5490278a69c2a8a4fbf4e2370ce2ce71d143e:us-east-1</ManifestVersion>
+    <Policies>
+        <Policy>AM-entry-response</Policy>
+        <Policy>EV-entry-name</Policy>
+        <Policy>KV-decrypt-entry</Policy>
+        <Policy>SC-update-env</Policy>
+        <Policy>SC-update-org</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>default</ProxyEndpoint>
+    </ProxyEndpoints>
+    <Resources/>
+    <Spec></Spec>
+    <TargetServers/>
+    <TargetEndpoints>
+        <TargetEndpoint>default</TargetEndpoint>
+    </TargetEndpoints>
+</APIProxy>

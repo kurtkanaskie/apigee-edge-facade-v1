@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations encrypted="false" mapIdentifier="not-found" async="false" continueOnError="false" enabled="true" name="KV-decrypt-entry">
+    <DisplayName>KV-decrypt-entry</DisplayName>
+    <FaultRules/>
+    <Properties/>
+    <ExclusiveCache>false</ExclusiveCache>
+    <ExpiryTimeInSecs>-1</ExpiryTimeInSecs>
+    <InitialEntries/>
+    <Get assignTo="private.value">
+        <Key>
+            <Parameter ref="name"></Parameter>
+        </Key>
+    </Get>
+    <Scope>organization</Scope>
+</KeyValueMapOperations>
