@@ -1,14 +1,14 @@
 # Apigee Edge Facade API
 This Apigee Edge API proxy (edge-facade-v1) is a facade on the Apigee Edge Management API to enable retrieval of encrypted Key Value Map (KVM) entries.
 It can be used to facilitate migration from Edge to X when the source of the encrypted KVM entries is not available.
-If uses the same [KVM API paths](https://apidocs.apigee.com/docs/key-value-maps/1/overview) as the Edge API for 
+It uses the same [KVM API paths](https://apidocs.apigee.com/docs/key-value-maps/1/overview) as the Edge API for 
 [Organziation KVM Entries Get](https://apidocs.apigee.com/docs/key-value-maps/1/routes/organizations/%7Borg_name%7D/apis/%7Bapi_name%7D/keyvaluemaps/%7Bmap_name%7D/entries/%7Bentry_name%7D/get)
  and [Environment KVM Entries Get](https://apidocs.apigee.com/docs/key-value-maps/1/routes/organizations/%7Borg_name%7D/environments/%7Benv_name%7D/keyvaluemaps/%7Bmap_name%7D/entries/%7Bentry_name%7D/get).
  Since the API is a front end to the Edge API, the proxy only needs to be deployed to one environment.
 
  > **NOTE:** This example exploits an undocumented Edge Management API feature that can modify an existing policy in a deployed proxy. 
 >
-> This example uses a Service Callout to modify the currently deployed revision of itself to re-write the `mapIdentifier` attribute in the KVM policy prior to executing the policy.
+> It uses a Service Callout to modify the currently deployed revision of itself to re-write the `mapIdentifier` attribute in the KVM policy prior to executing the policy.
  It gets the name for the `mapIdentifier` as well as the KVM entry key name from the API path segments.
 
  A bash script [kvms-export.sh](kvms-export.sh) is provided that exports all of the organization environment KVMs in a format that is suitable for import into an Apigee X organization using [apigeecli](https://github.com/apigee/apigeecli).
@@ -25,11 +25,12 @@ So I can import them into X.
 [Key value maps API - Apigee Edge APIs](https://apidocs.apigee.com/content/keyvalue-maps-management-api)\
 [get /organizations/{org_name}/keyvaluemaps/{map_name}/entries/{entry_name}](https://apidocs.apigee.com/docs/key-value-maps/1/routes/organizations/%7Borg_name%7D/keyvaluemaps/%7Bmap_name%7D/entries/%7Bentry_name%7D/get)\
 [get /organizations/{org_name}/environments/{env_name}/keyvaluemaps/{map_name}\entries/{entry_name}](https://apidocs.apigee.com/docs/key-value-maps/1/routes/organizations/%7Borg_name%7D/environments/%7Benv_name%7D/keyvaluemaps/%7Bmap_name%7D/entries/%7Bentry_name%7D/get)
+[KVM Operations Policy](https://docs.apigee.com/api-platform/reference/policies/key-value-map-operations-policy)
 
 ## Issue
 Apigee Edge management APIs do not support retrieval of encrypted KVM entries.\
 The only way to retrieve encrypted KVM entries is by using a KVM policy.\
-The KVM policy `mapIdentifier` attribute requires a static value and cannot be paramaterized.
+The KVM policy `mapIdentifier` attribute requires a static value and cannot be parameterized.
 
 ## Limitations
 This “technique” only works for organization and environment scoped KVMs.
@@ -50,7 +51,6 @@ Exploit an undocumented ability to modify an existing policy in a deployed proxy
 * Use KVM policy to get the entry value in the “private.value” variable
 * Use Assign Message policy to return the unencrypted value
 
-
 ## Deployment
 Deploy the `edge-facade-v1` proxy to the Edge organization.
 ```
@@ -58,11 +58,9 @@ zip -r edge-facade-v1.zip apiproxy
 ```
 Import into Edge using UI and deploy.
 
-
-
 ## Test Flow
-```
 Call Edge API to retrieve org level KVMs
+```
 export ORG=your_edge_org
 export HOST=your_edge_org-your_env.apigee.net
 B64UNPW=$(echo -n 'username@gmail.com:secret123' | base64)
