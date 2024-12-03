@@ -24,7 +24,7 @@ So I can import them into X.
 [Working with key value maps | Apigee Edge - retrieving values](https://docs.apigee.com/api-platform/cache/key-value-maps#managingandusingkvms-retrievingkvms)\
 [Key value maps API - Apigee Edge APIs](https://apidocs.apigee.com/content/keyvalue-maps-management-api)\
 [get /organizations/{org_name}/keyvaluemaps/{map_name}/entries/{entry_name}](https://apidocs.apigee.com/docs/key-value-maps/1/routes/organizations/%7Borg_name%7D/keyvaluemaps/%7Bmap_name%7D/entries/%7Bentry_name%7D/get)\
-[get /organizations/{org_name}/environments/{env_name}/keyvaluemaps/{map_name}\entries/{entry_name}](https://apidocs.apigee.com/docs/key-value-maps/1/routes/organizations/%7Borg_name%7D/environments/%7Benv_name%7D/keyvaluemaps/%7Bmap_name%7D/entries/%7Bentry_name%7D/get)
+[get /organizations/{org_name}/environments/{env_name}/keyvaluemaps/{map_name}\entries/{entry_name}](https://apidocs.apigee.com/docs/key-value-maps/1/routes/organizations/%7Borg_name%7D/environments/%7Benv_name%7D/keyvaluemaps/%7Bmap_name%7D/entries/%7Bentry_name%7D/get)\
 [KVM Operations Policy](https://docs.apigee.com/api-platform/reference/policies/key-value-map-operations-policy)
 
 ## Issue
