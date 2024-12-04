@@ -59,18 +59,43 @@ zip -r edge-facade-v1.zip apiproxy
 Import into Edge using UI and deploy.
 
 ## Test Flow
-Call Edge API to retrieve org level KVMs
+Set environment variables
 ```
 export ORG=your_edge_org
+export ENV=test
 export HOST=your_edge_org-your_env.apigee.net
 B64UNPW=$(echo -n 'username@gmail.com:secret123' | base64)
 AUTH="Authorization:Basic $B64UNPW"
+```
 
-curl -s -H "$AUTH" https://$HOST/edge-facade/v1/organizations/$ORG/keyvaluemaps | jq
-[
-  "org-config",
-  "org-config-private"
-]
+### Organization level KVM
+Create organization level KVM to test
+```
+curl -s -H "$AUTH" -H "Content-Type:application/json" \
+https://$HOST/edge-facade/v1/organizations/$ORG/keyvaluemaps -d '
+{
+  "name" : "org-config-private",
+  "encrypted" : true,
+  "entry" : [ {
+    "name" : "private_key1",
+    "value" : "private_value1"
+  }, {
+    "name" : "private_key2",
+    "value" : "private_value2"
+  } ]
+}'
+
+{
+  "encrypted" : true,
+  "entry" : [ {
+    "name" : "private_key1",
+    "value" : "private_value1"
+  }, {
+    "name" : "private_key2",
+    "value" : "private_value2"
+  } ],
+  "name" : "org-config-private"
+}
 ```
 
 Call Edge API to retrieve KVM entries
@@ -81,22 +106,97 @@ curl -s -H "$AUTH" https://$HOST/edge-facade/v1/organizations/$ORG/keyvaluemaps/
   "private_key2"
 ]
 ```
-
-
-Call Edge Facade API proxy to retrieve KVM entries
+Without using the Edge facade API proxy
 ```
-# First call instructs proxy to modify the proxy KVM policy using Service Callout by passing callout query param set to true
+curl -s -H "$AUTH" https://api.enterprise.apigee.com/v1/organizations/$ORG/keyvaluemaps/org-config-private/entries/private_key1?callout=true 
+{
+  "name" : "private_key1",
+  "value" : "*****"
+}
+```
+For each key, call Edge Facade API proxy to retrieve KVM entry values.\
+First call instructs proxy to self-modify the KVM policy by passing callout query param set to true.\
+Service Callout executes and modifies the KVM policy prior to executing the policy in the flow. 
+```
 curl -s -H "$AUTH" https://$HOST/edge-facade/v1/organizations/$ORG/keyvaluemaps/org-config-private/entries/private_key1?callout=true | jq
 {
   "name": "private_key1",
   "value": "private_value1"
 }
+```
 
-# Subsequent calls use the currently configured KVM policy
+Subsequent calls use the currently configured KVM policy
+```
 curl -s -H "$AUTH" https://$HOST/edge-facade/v1/organizations/$ORG/keyvaluemaps/org-config-private/entries/private_key2 | jq
 {
   "name": "private_key2",
   "value": "private_value2"
+}
+```
+
+### Environment level KVM
+Create environment level KVM to test
+```
+curl -s -H "$AUTH" -H "Content-Type:application/json" \
+https://$HOST/edge-facade/v1/organizations/$ORG/environments/$ENV/keyvaluemaps -d '
+{
+  "name" : "env-config-private",
+  "encrypted" : true,
+  "entry" : [ {
+    "name" : "private_env_key1",
+    "value" : "private_env_value1"
+  }, {
+    "name" : "private_env_key2",
+    "value" : "private_env_value2"
+  } ]
+}'
+
+{
+  "encrypted" : true,
+  "entry" : [ {
+    "name" : "private_env_key1",
+    "value" : "private_env_value1"
+  }, {
+    "name" : "private_env_key2",
+    "value" : "private_env_value2"
+  } ],
+  "name" : "env-config-private"
+}
+```
+
+Call Edge facade API to retrieve KVM entries
+```
+curl -s -H "$AUTH" https://$HOST/edge-facade/v1/organizations/$ORG/environments/$ENV/keyvaluemaps/env-config-private/keys | jq
+[
+  "private_env_key1",
+  "private_env_key2"
+]
+```
+Without using the Edge facade API proxy
+```
+curl -s -H "$AUTH" https://api.enterprise.apigee.com/v1/organizations/$ORG/environments/$ENV/keyvaluemaps/env-config-private/entries/private_env_key1 
+{
+  "name" : "private_env_key1",
+  "value" : "*****"
+}
+```
+For each key, call Edge Facade API proxy to retrieve KVM entry values.\
+First call instructs proxy to self-modify the KVM policy by passing callout query param set to true.\
+Service Callout executes and modifies the KVM policy prior to executing the policy in the flow. 
+```
+curl -s -H "$AUTH" https://$HOST/edge-facade/v1/organizations/$ORG/environments/$ENV/keyvaluemaps/env-config-private/entries/private_env_key1?callout=true | jq
+{
+  "name": "private_env_key1",
+  "value": "private_env_value1"
+}
+```
+
+Subsequent calls use the currently configured KVM policy
+```
+curl -s -H "$AUTH" https://$HOST/edge-facade/v1/organizations/$ORG/environments/$ENV/keyvaluemaps/env-config-private/entries/private_env_key2 | jq
+{
+  "name": "private_env_key2",
+  "value": "private_env_value2"
 }
 ```
 
