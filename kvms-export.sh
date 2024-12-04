@@ -205,5 +205,5 @@ done
 ##################################################
 # Update KVM policy to default, not-found KVM
 echo Updating KVM policy to \"not-found\" KVM
-curlb https://$HOST/edge-facade/v1/organizations/$ORG/keyvaluemaps/not-found/entries/entry?callout=true | jq
+curl -s -H "$AUTH" -s https://$HOST/edge-facade/v1/organizations/$ORG/keyvaluemaps/not-found/entries/entry?callout=true 2>&1 > /dev/null
 
